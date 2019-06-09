@@ -1,16 +1,15 @@
 version: '3'
 services:
-
   php-fpm:
     build:
       context: ./php
       dockerfile: Dockerfile
     volumes: 
-      - ./../:/wiedza
+      - "./../:/wiedza"
     expose:
-      - 9000
+      - "9000"
     ports:
-      - 9000:9000
+      - "9000:9000"
     # Fixing Packgist DNS Resolver
     extra_hosts:
       - "packagist.org:142.44.164.249"
@@ -20,15 +19,15 @@ services:
       context: ./nginx
       dockerfile: Dockerfile
     volumes: 
-      - ./../:/wiedza
+      - "./../:/wiedza"
     expose:
-      - 80
+      - "80"
     ports:
-      - 80:80
+      - "80:80"
     depends_on: 
-      - php-fpm
+      - "php-fpm"
     links: 
-      - php-fpm
+      - "php-fpm"
 
   mysql:
     image: mysql
@@ -40,4 +39,4 @@ services:
       MYSQL_USER: wiedza
       MYSQL_PASSWORD: wiedza
     ports:
-      - 3306:3306
+      - "3306:3306"
