@@ -15,7 +15,6 @@ services:
     extra_hosts:
       - "packagist.org:142.44.164.249"
 
-
   nginx:
     build:
       context: ./nginx
@@ -30,3 +29,15 @@ services:
       - php-fpm
     links: 
       - php-fpm
+
+  mysql:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: wiedza_password
+      MYSQL_DATABASE: wiedza
+      MYSQL_USER: wiedza
+      MYSQL_PASSWORD: wiedza
+    ports:
+      - 3306:3306
