@@ -1,0 +1,32 @@
+version: '3'
+services:
+
+  php-fpm:
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+    volumes: 
+      - ./../:/wiedza
+    expose:
+      - 9000
+    ports:
+      - 9000:9000
+    # Fixing Packgist DNS Resolver
+    extra_hosts:
+      - "packagist.org:142.44.164.249"
+
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    volumes: 
+      - ./../:/wiedza
+    expose:
+      - 80
+    ports:
+      - 80:80
+    depends_on: 
+      - php-fpm
+    links: 
+      - php-fpm
